@@ -3,6 +3,7 @@ package config
 import (
 	"github.com/chenyuIT/framework/auth"
 	"github.com/chenyuIT/framework/cache"
+	"github.com/chenyuIT/framework/captcha"
 	"github.com/chenyuIT/framework/console"
 	"github.com/chenyuIT/framework/contracts"
 	"github.com/chenyuIT/framework/crypt"
@@ -15,9 +16,11 @@ import (
 	"github.com/chenyuIT/framework/http"
 	"github.com/chenyuIT/framework/log"
 	"github.com/chenyuIT/framework/mail"
+	"github.com/chenyuIT/framework/ocr"
 	"github.com/chenyuIT/framework/queue"
 	"github.com/chenyuIT/framework/route"
 	"github.com/chenyuIT/framework/schedule"
+	"github.com/chenyuIT/framework/sms"
 	"github.com/chenyuIT/framework/validation"
 
 	"chenyuIT/app/providers"
@@ -89,6 +92,10 @@ func init() {
 			&providers.QueueServiceProvider{},
 			&providers.EventServiceProvider{},
 			&providers.ValidationServiceProvider{},
+
+			&sms.ServiceProvider{},
+			&ocr.ServiceProvider{},
+			&captcha.ServiceProvider{},
 		},
 	})
 }

@@ -3,28 +3,69 @@
 package main
 
 import (
-    "github.com/chenyuIT/framework/facades"
-	"github.com/cloudwego/hertz/pkg/app/server"
 	"chenyuIT/bootstrap"
+	"net/http"
+
+	"github.com/chenyuIT/framework/facades"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	bootstrap.Boot()
-	//test function
-	//加解密测试
-	enstr, _ := facades.Crypt.EncryptString("hello")
-	facades.Log.Debug(enstr)
-	decodestr, _ := facades.Crypt.DecryptString(enstr)
-	facades.Log.Debug(decodestr)
 
 	//配置读取测试
 	database_str := facades.Config.GetString("DB_DATABASE")
 	// facades.Log.Debug(database_str)
 	println(database_str)
-	
-	
-    //Start Hertz Web Server on port 8888	
-	h := server.Default()
-	register(h)
-	h.Spin()
+
+	//Start Hertz Web Server on port 8888
+	// h := server.Default()
+	// register(h)
+	// h.Spin()
+
+	captcha := facades.Captcha
+	facades.Log.Debug(captcha)
+
+	r := gin.Default()
+	r.Use(CheckCors()) //开启中间件 允许使用跨域请求
+	//获取post过来的图片(base64编码)，image内容是带前缀的：
+	// data:image/jpeg;base64,/9j/4AAQ。。。，这里的data:image/jpeg;base64,就是前缀
+	r.POST("/sms_send", func(c *gin.Context) {
+		err := facades.Sms.Send(c.Query("Mobile"))
+		if err == nil {
+			c.JSON(200, gin.H{
+				"result": "send success.",
+			})
+		}
+	})
+	r.POST("/sms_checkcode", func(c *gin.Context) {
+
+	})
+
+	r.Run(":5002")
+}
+
+func CheckCors() gin.HandlerFunc {
+	//这里可以处理一些别的逻辑
+	return func(c *gin.Context) {
+		// 定义一个origin的map，只有在字典中的key才允许跨域请求
+		var allowOrigins = map[string]struct{}{
+			"http://127.0.0.1": struct{}{},
+		}
+		origin := c.Request.Header.Get("Origin") //请求头部
+		method := c.Request.Method
+		if method == "OPTIONS" {
+			c.AbortWithStatus(http.StatusNoContent)
+		}
+		if origin != "" {
+			if _, ok := allowOrigins[origin]; ok {
+				c.Header("Access-Control-Allow-Origin", origin)
+				c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+				c.Header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+				c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Cache-Control, Content-Language, Content-Type")
+				c.Header("Access-Control-Allow-Credentials", "true")
+			}
+		}
+		c.Next()
+	}
 }
