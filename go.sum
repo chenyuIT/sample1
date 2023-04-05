@@ -175,6 +175,8 @@ github.com/cespare/xxhash/v2 v2.2.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XL
 github.com/checkpoint-restore/go-criu/v5 v5.3.0/go.mod h1:E/eQpaFtUKGOOSEBZgmKAcn+zUUwWxqcaKZlF54wK8E=
 github.com/chenyuIT/framework v1.10.2-0.20230403170015-6f06d8450082 h1:ZUxy7tGZGrP5dwnGQcNMw7qYr8tR6/WYqbSS47clvgQ=
 github.com/chenyuIT/framework v1.10.2-0.20230403170015-6f06d8450082/go.mod h1:orUCLg3P10WP3TU3tRx8cemmXUNJFin05rB6LA3uDZU=
+github.com/chenyuIT/framework v1.10.2-0.20230405175752-2d21b35f2854 h1:RPIKF5AC0wr/Y2kcKla9zhmJKdwgcFuMXSJ+h0PipJ4=
+github.com/chenyuIT/framework v1.10.2-0.20230405175752-2d21b35f2854/go.mod h1:orUCLg3P10WP3TU3tRx8cemmXUNJFin05rB6LA3uDZU=
 github.com/chenzhuoyu/base64x v0.0.0-20211019084208-fb5309c8db06/go.mod h1:DH46F32mSOjUmXrMHnKwZdA8wcEefY7UVqBKYGjpdQY=
 github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 h1:qSGYFH7+jGhDF8vLC+iwCD4WpbV1EBDSzWkJODFLams=
 github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311/go.mod h1:b583jCggY9gE99b6G5LEC39OIiVsWj+R97kbl5odCEk=
