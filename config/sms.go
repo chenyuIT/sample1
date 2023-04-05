@@ -11,8 +11,8 @@ func init() {
 		"vendors": map[string]any{
 			//阿里云短信配置
 			"alidayu": map[string]any{
-				"appkey":    "LTAI5tSCqnZSbaL3dysjFf1G",
-				"appSecret": "6jLMhmOuqB7xazFv0K8Ad84TBqScwI",
+				"appkey":    config.Env("SMS_APPKEY"),
+				"appSecret": config.Env("SMS_APPSECRET"),
 				"issendbox": false,
 				"servicelist": map[string]any{
 					"register": map[string]any{
